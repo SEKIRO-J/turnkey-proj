@@ -8,7 +8,8 @@
     "start": "node dist/index.js",
     "create-non-root-user": "cross-env NODE_OPTIONS='--no-deprecation' pnpm ts-node src/commands/createNonRootUser.ts",
     "sign-transaction-non-root": "cross-env NODE_OPTIONS='--no-deprecation' pnpm ts-node src/commands/signTransactionNonRoot.ts",
-    "allow-non-root-signing": "cross-env NODE_OPTIONS='--no-deprecation' pnpm ts-node src/commands/allowNonRootSigning.ts"
+    "allow-non-root-signing": "cross-env NODE_OPTIONS='--no-deprecation' pnpm ts-node src/commands/allowNonRootSigning.ts",
+    "allow-non-root-erc20-transfer-to-recipients": "cross-env NODE_OPTIONS='--no-deprecation' pnpm ts-node src/commands/allowNonRootERC20TransferToRecipient.ts"
   },
   "dependencies": {
     "@turnkey/api-key-stamper": "^0.4.6",

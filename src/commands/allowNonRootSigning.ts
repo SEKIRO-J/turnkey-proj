@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { handlePolicyCreation } from '../handlers/allowNonRootSigningHandler';
+import { handleSigningPolicyCreation } from '../handlers/allowNonRootSigningHandler';
 
 // CLI Command Setup
 const program = new Command();
@@ -9,7 +9,7 @@ program
   .description('Create a policy allowing a non-root user to sign transactions')
   .argument('<username>', 'Username of the non-root user')
   .argument("<walletAddress>", "The wallet address to sign with")
-  .action(handlePolicyCreation);
+  .action(handleSigningPolicyCreation);
 
 // Execute the CLI program
 if (require.main === module) {

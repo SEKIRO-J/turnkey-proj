@@ -79,6 +79,17 @@ This command will:
 - Sign the provided transaction using the specified wallet
 - Output the signed transaction data
 
+### 3. Allow Non-Root User to Transfer ERC20 Tokens
+
+Create a policy that allows a non-root user to transfer ERC20 tokens to a specific recipient:
+
+```bash
+pnpm run allow-non-root-erc20-transfer-to-recipients <username> <contractAddress> <recipientAddress>
+```
+Example Transfer USDT to a specified address:
+```bash
+pnpm run allow-non-root-erc20-transfer-to-recipients john-doe 0xdac17f958d2ee523a2206206994597c13d831ec7 0x3b8d544B448100e719909D5Be512f0faf841AC82
+```
 
 ## Security Notes
 
