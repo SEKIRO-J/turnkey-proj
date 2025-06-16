@@ -30,12 +30,12 @@ BASE_URL=https://api.turnkey.com
 Create a new user with automatically generated API credentials:
 
 ```bash
-pnpm run create-non-root-user <username> [--email <email>]
+pnpm run create-non-root-user <username>
 ```
 
 Example:
 ```bash
-pnpm run create-non-root-user john-doe --email john@example.com
+pnpm run create-non-root-user john-doe
 ```
 
 This command will:
@@ -44,22 +44,21 @@ This command will:
 - Store the private key locally (managed by Turnkey CLI)
 - Save key information in the `${HOME}/.config/turnkey/keys` directory
 
-### 2. Allow Non-Root User to Sign Transactions
+### 2. Allow Non-Root User to Sign Transactions With A Specfic Wallet
 
 Create a policy that allows a non-root user to sign transactions:
 
 ```bash
-pnpm run allow-non-root-signing <username>
+pnpm run allow-non-root-signing <username> <wallet-address>
 ```
 
 Example:
 ```bash
-pnpm run allow-non-root-signing john-doe
+pnpm run allow-non-root-signing john-doe 0xaddress
 ```
 
 This command will:
-- Create a policy that allows the specified user to sign transactions
-- The policy will be scoped to the wallet address specified in your `.env` file
+- Create a policy that allows the specified user to sign transactions using the specficed wallet
 - Output the policy ID upon successful creation
 
 ### 3. Sign a Transaction (Non-Root User)
@@ -67,31 +66,19 @@ This command will:
 Sign a transaction using a non-root user's credentials:
 
 ```bash
-pnpm run sign-transaction-non-root <username> <unsignedTransaction>
+pnpm run sign-transaction-non-root <username> <unsignedTransaction> <wallet-address>
 ```
 
 Example:
 ```bash
-pnpm run sign-transaction-non-root john-doe 0x02e883aa36a78083124f80831250a2825208943b8d544b448100e719909d5be512f0faf841ac820180c0
+pnpm run sign-transaction-non-root john-doe 0xtxn 0xaddress
 ```
 
 This command will:
 - Load the specified user's credentials
-- Sign the provided transaction
+- Sign the provided transaction using the specified wallet
 - Output the signed transaction data
 
-## Environment Variables
-
-Ensure your `.env` file includes the following variables:
-
-```bash
-# Required for all commands
-API_PUBLIC_KEY=your_root_public_key
-API_PRIVATE_KEY=your_root_private_key
-ORGANIZATION_ID=your_organization_id
-ETH_WALLET_ACCOUNT=0xYourWalletAddress
-BASE_URL=https://api.turnkey.com  
-```
 
 ## Security Notes
 

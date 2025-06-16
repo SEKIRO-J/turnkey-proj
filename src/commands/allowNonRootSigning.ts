@@ -8,6 +8,7 @@ program
   .name('allow-non-root-signing')
   .description('Create a policy allowing a non-root user to sign transactions')
   .argument('<username>', 'Username of the non-root user')
+  .argument("<walletAddress>", "The wallet address to sign with")
   .action(handlePolicyCreation);
 
 // Execute the CLI program
