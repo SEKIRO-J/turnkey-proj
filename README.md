@@ -20,7 +20,7 @@ API_PUBLIC_KEY=your_root_public_key
 API_PRIVATE_KEY=your_root_private_key
 ORGANIZATION_ID=your_organization_id
 ETH_WALLET_ACCOUNT=0xYourWalletAddress
-API_URL=https://api.turnkey.com  
+BASE_URL=https://api.turnkey.com  
 ```
 
 ## Available Commands
@@ -90,7 +90,7 @@ API_PUBLIC_KEY=your_root_public_key
 API_PRIVATE_KEY=your_root_private_key
 ORGANIZATION_ID=your_organization_id
 ETH_WALLET_ACCOUNT=0xYourWalletAddress
-API_URL=https://api.turnkey.com  
+BASE_URL=https://api.turnkey.com  
 ```
 
 ## Security Notes

@@ -2,6 +2,10 @@ import { TurnkeyClient } from "@turnkey/http";
 import { TurnkeyActivityError } from "@turnkey/sdk-server";
 import { execSync } from "child_process";
 import { CACHE_DIR } from "../utils/constants";
+import { logger, LOG_LEVELS } from "../utils/logger";
+
+// Set log level to INFO to disable debug logs
+process.env.LOG_LEVEL = 'INFO';
 
 export default async function createUser(
   turnkeyClient: TurnkeyClient,
@@ -9,14 +13,13 @@ export default async function createUser(
   apiKeyName: string,
   publicKey: string,
   organizationId: string,
-): Promise<void> {
-  let userTags: string[] = new Array();
+): Promise<string> {
+  let userTags: string[] = [];
   try {
-    console.log("Creating user with parameters:", {
+    logger.info("Creating user with parameters:", {
       userName,
       apiKeyName,
-      organizationId,
-      publicKeyLength: publicKey.length,
+      organizationId
     });
 
     const response = await turnkeyClient.createApiOnlyUsers({
@@ -39,31 +42,34 @@ export default async function createUser(
       },
     });
 
-    console.log("Response received:", JSON.stringify(response, null, 2));
+    logger.debug("Response received:", JSON.stringify(response, null, 2));
 
-    // The response structure from the SDK is different from the API response
     const userId = response.activity.result?.createApiOnlyUsersResult?.userIds?.[0];
 
     if (!userId) {
-      console.error("Failed to get user ID from response:", response);
+      logger.error("Failed to get user ID from response:", response);
       throw new Error('Failed to get user ID from response');
     }
 
-    // Success!
-    console.log(
+
+    // Save user ID to cache
+    saveUserId(userName, userId);
+    
+    logger.debug(
       [
-        `New user created!`,
+        ` New user created!`,
         `- Name: ${userName}`,
         `- User ID: ${userId}`,
+        `- Keys Directory: ${CACHE_DIR}/`,
         ``,
       ].join("\n"),
     );
 
-    saveUserId(userName, userId);
+    return userId;
   } catch (error) {
     // If needed, you can read from `TurnkeyActivityError` to find out why the activity didn't succeed
     if (error instanceof TurnkeyActivityError) {
-      console.error("Turnkey activity error:", {
+      logger.error("Turnkey activity error:", {
         message: error.message,
         cause: error.cause,
         activityId: error.activityId,
@@ -73,7 +79,7 @@ export default async function createUser(
       throw error;
     }
 
-    console.error("Unexpected error during user creation:", error);
+    logger.error("Unexpected error during user creation:", error);
     throw new TurnkeyActivityError({
       message: "Failed to create a new user",
       cause: error as Error,
@@ -86,6 +92,6 @@ function saveUserId(userName: string, userId: string): void {
   
   // Save user ID
   const userIdPath = `${CACHE_DIR}/${userName}.user-id`;
-  console.log("Saving user ID to:", userIdPath);
+  logger.info("Saving user ID to:", userIdPath);
   execSync(`echo "${userId}" > ${userIdPath}`);
-} 
+}
