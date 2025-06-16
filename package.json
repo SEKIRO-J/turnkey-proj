@@ -1,0 +1,28 @@
+{
+  "name": "turnkey-proj",
+  "version": "1.0.0",
+  "description": "CLI commands for Turnkey operations",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "create-non-root-user": "cross-env NODE_OPTIONS='--no-deprecation' pnpm ts-node src/commands/createNonRootUser.ts",
+    "sign-transaction-non-root": "cross-env NODE_OPTIONS='--no-deprecation' pnpm ts-node src/commands/signTransactionNonRoot.ts",
+    "allow-non-root-signing": "cross-env NODE_OPTIONS='--no-deprecation' pnpm ts-node src/commands/allowNonRootSigning.ts"
+  },
+  "dependencies": {
+    "@turnkey/api-key-stamper": "^0.4.6",
+    "@turnkey/ethers": "^1.1.29",
+    "@turnkey/http": "^3.4.2",
+    "@turnkey/sdk-server": "^1.0.0",
+    "commander": "^11.1.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
+    "ethers": "^5.7.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
