@@ -30,7 +30,7 @@ export async function handleSigningPolicyCreation(username: string, walletAddres
       `${username}-signing-policy-${walletAddress.slice(0, 8)}`,
       'EFFECT_ALLOW',
       `approvers.any(user, user.id == '${userId}')`,
-      `eth.address == '${walletAddress}'`,
+      `wallet.address == '${walletAddress}'`,
       `Policy allowing ${username} to sign transactions for wallet ${walletAddress}`,
     );
 
